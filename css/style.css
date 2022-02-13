@@ -1,0 +1,30 @@
+body{
+  background-color: aliceblue;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  height: 100vh;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(17, 3vmin);
+  grid-template-rows: repeat(17, 3vmin);
+  grid-gap: 0vmin;
+  height: 357px;
+  width: 357px;
+  margin: 0;
+  padding: 0;
+  border-style: solid;
+  border-width: 2px;
+  border-color: cornflowerblue;
+}
+
+.cell {
+  border-style: dashed;
+  border-width: 0.1px;
+  border-color: slateblue;
+  text-align: center;
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  padding: 0;
+}

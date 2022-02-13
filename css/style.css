@@ -29,3 +29,17 @@ body{
   border-width: 0.1px;
   border-color: slateblue;
 }
+
+.info {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Create a class of snake and fruit then use JS to add to it */
+.snake {
+  background-color: aquamarine;
+}
+
+.fruit {
+  background-color: blanchedalmond;
+}

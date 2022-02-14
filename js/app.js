@@ -49,16 +49,8 @@ init()
 
 //create a render function to render the snake and fruit
 function renderSnake(){
-  //render a Snake by checking for a grid's ID to a currentSnake's element
-  currentSnake.forEach(snakeCell => theGrid[snakeCell] = 'S')
-  console.log(theGrid)
-  theGrid.forEach((cell, idx) => {
-    if (cell === 'S') {
-      cellsEl[idx].classList = 'snake'
-    // } else if (cell === null) {
-    //   cellsEl[idx].className.remove('snake')
-    }
-  })
+  //render a Snake by checking for a cell's ID to a currentSnake's element, add classlist of snake to it
+  currentSnake.forEach(snakeCell => cellsEl[snakeCell].classList = 'snake')
 }
 //create a timer to run and move the snake
 function moveSnake(){

@@ -48,26 +48,24 @@ function init() {
 init()
 
 //create a render function to render the snake and fruit
-function render(){
+function renderSnake(){
   //render a Snake by checking for a grid's ID to a currentSnake's element
   currentSnake.forEach(snakeCell => theGrid[snakeCell] = 'S')
   console.log(theGrid)
   theGrid.forEach((cell, idx) => {
     if (cell === 'S') {
-      cellsEl[idx].className = 'snake'
+      cellsEl[idx].classList = 'snake'
     // } else if (cell === null) {
     //   cellsEl[idx].className.remove('snake')
     }
   })
-  //render fruit - can add as an else if for the above but have to style the array as an 'F' from a randomFruit generator function. Render has to be constant while game is in play
-  //render score
-  //render timer
 }
 //create a timer to run and move the snake
 function moveSnake(){
   snakeHead = currentSnake[0]
   snakeTail = currentSnake[currentSnake.length - 1]
   currentSnake.pop()
+  cellsEl[snakeTail].classList.remove('snake')
   currentSnake.unshift(snakeHead + currentDirection)
   console.log(currentSnake)
 }
@@ -86,7 +84,7 @@ function tick(){
   console.log(theTimer)
   theTimer ++
   moveSnake()
-  render()
+  renderSnake()
   console.log(currentSnake)
   if (theTimer === 5){
     clearInterval(timerIntervalId)
@@ -108,10 +106,14 @@ function newFruitCell(){
   return Math.floor(Math.random() * (288 - 0)) + 0;
 }
 
-//check if the fruit is a snake
+//only render the fruit if it is not already part of the snake
 function renderNewFruit(){
   let currentFruit = newFruitCell()
-  while (checkSnake(currentFruit) === true){
-    cellsEl[currentFruit].classList = 'fruit'
+  while (checkSnake(currentFruit) !== true){
+    cellsEl[currentFruit].className = 'fruit'
   }
+}
+
+function getsFood(){
+  //if the snakeHead === currentFruit, remove currentFruit and generate a new fruit. Call this function in the move snake function? Or push the tail on 
 }

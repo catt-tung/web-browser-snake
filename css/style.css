@@ -28,6 +28,8 @@ body{
   border-style: dashed;
   border-width: 0.1px;
   border-color: slateblue;
+  width: 3vmin;
+  height: 3vmin;
 }
 
 .info {
@@ -38,6 +40,10 @@ body{
 /* Create a class of snake and fruit then use JS to add to it */
 .snake {
   background-color: aquamarine;
+}
+
+.snake-head {
+  background-color: limegreen;
 }
 
 .fruit {

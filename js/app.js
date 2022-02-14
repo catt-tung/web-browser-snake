@@ -41,8 +41,7 @@ function init() {
   theScore = 0
   gameOver = null
   currentSnake = [193, 192, 191, 190]
-  snakeHead = currentSnake[0]
-  snakeTail = currentSnake[currentSnake.length - 1]
+
   currentDirection = 1
   theTimer = 0
 }
@@ -55,7 +54,7 @@ function render(){
   console.log(theGrid)
   theGrid.forEach((cell, idx) => {
     if (cell === 'S') {
-      cellsEl[idx].classList = 'snake'
+      cellsEl[idx].className = 'snake'
     } else if (cell === 'F') {
       cellsEl[idx].classList = 'fruit'
     }
@@ -67,7 +66,9 @@ function render(){
 render()
 //create a timer to run and move the snake
 function moveSnake(){
-  currentSnake.pop(snakeTail)
+  snakeHead = currentSnake[0]
+  snakeTail = currentSnake[currentSnake.length - 1]
+  currentSnake.pop()
   currentSnake.unshift(snakeHead + currentDirection)
   render()
 }
@@ -92,7 +93,7 @@ function tick(){
   }
 }
 tick()
-render()
+
 
 //generate fruit function
 function newFruit(){

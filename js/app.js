@@ -3,7 +3,7 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit, min, sec, millisec
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
@@ -79,8 +79,17 @@ function tick(){
   if (theTimer === 6){
     clearInterval(timerIntervalId);
   }
+  displayTimeElapsed()
 }
 tick()
+
+function displayTimeElapsed(){
+  min = Math.floor(theTimer / 60);
+  sec = theTimer % 60;
+  millisec = theTimer / 1000;
+  displayTimer.innerText = `${min}:${sec}`;
+}
+
 
 //Fruit generation 
 //check if cells are available
@@ -96,7 +105,7 @@ function checkSnake(parameter){
 function newFruitCell(){
   return Math.floor(Math.random() * (288 - 0)) + 0;
 }
-
+//only render the fruit if it is not part of the snake
 function newFruit(){
   //currentFruit is in init function as 0, remove any fruit cell at the beginning so when called it can remove the previous one
   cellsEl[currentFruit].classList.remove('fruit');
@@ -109,15 +118,7 @@ function newFruit(){
 }
 newFruit()
 
-
-//only render the fruit if it is not already part of the snake
-function renderNewFruit(){
-  let currentFruit = newFruitCell()
-  while (checkSnake(currentFruit) !== true){
-    cellsEl[currentFruit].className = 'fruit'
-  }
-}
-
 function getsFood(){
   //if the snakeHead === currentFruit, remove currentFruit and generate a new fruit. Call this function in the move snake function? Or push the tail on 
 }
+

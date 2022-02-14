@@ -36,8 +36,6 @@ console.log(cellsEl)
 
 //create initialization function
 function init() {
-  theGrid = new Array(289).fill(null)
-  console.log(theGrid)
   theScore = 0
   gameOver = null
   currentSnake = [193, 192, 191, 190]

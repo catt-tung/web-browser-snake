@@ -58,8 +58,6 @@ function render(){
       cellsEl[idx].classList = 'snake'
     } else if (cell === 'F') {
       cellsEl[idx].classList = 'fruit'
-    } else if (cell === null){
-      cellsEl[idx].classList.remove('snake', 'fruit')
     }
   })
   //render fruit - can add as an else if for the above but have to style the array as an 'F' from a randomFruit generator function. Render has to be constant while game is in play
@@ -95,3 +93,11 @@ function tick(){
 }
 tick()
 render()
+
+//generate fruit function
+function newFruit(){
+  let fruitPos = Math.floor(Math.random() * (288 - 0)) + 0;
+  console.log(fruitPos)
+  cellsEl[fruitPos].classList = 'fruit'
+}
+newFruit()

@@ -3,8 +3,7 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId
-
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
@@ -36,53 +35,55 @@ console.log(cellsEl)
 
 //create initialization function
 function init() {
-  theScore = 0
-  gameOver = null
-  currentSnake = [193, 192, 191, 190]
-
-  currentDirection = 1
-  theTimer = 0
+  theScore = 0;
+  currentFruit = 0;
+  gameOver = null;
+  currentSnake = [193, 192, 191, 190];
+  currentDirection = 1;
+  theTimer = 0;
 }
 init()
 
-//create a render function to render the snake and fruit
+//create a render function to render the snake 
 function renderSnake(){
   //render a Snake by checking for a cell's ID to a currentSnake's element, add classlist of snake to it
   currentSnake.forEach(snakeCell => cellsEl[snakeCell].classList = 'snake')
 }
-//create a timer to run and move the snake
+
 function moveSnake(){
-  snakeHead = currentSnake[0]
-  snakeTail = currentSnake[currentSnake.length - 1]
-  currentSnake.pop()
-  cellsEl[snakeTail].classList.remove('snake')
-  currentSnake.unshift(snakeHead + currentDirection)
-  console.log(currentSnake)
+  snakeHead = currentSnake[0];
+  snakeTail = currentSnake[currentSnake.length - 1];
+  currentSnake.pop();
+  cellsEl[snakeTail].classList.remove('snake');
+  currentSnake.unshift(snakeHead + currentDirection);
+  console.log(currentSnake);
 }
 //moveSnake function needs to work with the ticker to pop() the tail and unshift() the head
 
+//create a timer to run and move the snake
 function timerEl(){
   if (timerIntervalId){
-    theTimer = 0
-    clearInterval(timerIntervalId)
+    theTimer = 0;
+    clearInterval(timerIntervalId);
   }
-  timerIntervalId = setInterval(tick, 1000)
+  timerIntervalId = setInterval(tick, 1000);
 }
 timerEl()
 
 function tick(){
-  console.log(theTimer)
-  theTimer ++
-  moveSnake()
-  renderSnake()
-  console.log(currentSnake)
-  if (theTimer === 5){
-    clearInterval(timerIntervalId)
+  console.log(theTimer);
+  theTimer ++;
+  moveSnake();
+  renderSnake();
+  console.log(currentSnake);
+  if (theTimer === 6){
+    clearInterval(timerIntervalId);
   }
 }
 tick()
 
-//check if something is crossing a snake so we can use it in rendering a new fruit and later with the gameOver for if the snake head hits the snake body 
+//Fruit generation 
+//check if cells are available
 function checkSnake(parameter){
   if (currentSnake.includes(parameter)) {
     return true
@@ -91,10 +92,23 @@ function checkSnake(parameter){
 
 
 //generate fruit function
-//start with a random cell
+
 function newFruitCell(){
   return Math.floor(Math.random() * (288 - 0)) + 0;
 }
+
+function newFruit(){
+  //currentFruit is in init function as 0, remove any fruit cell at the beginning so when called it can remove the previous one
+  cellsEl[currentFruit].classList.remove('fruit');
+  currentFruit = newFruitCell()
+  if (currentSnake.includes(currentFruit)) {
+      return newFruit();
+    } else {
+      cellsEl[currentFruit].classList = 'fruit'}
+  console.log(currentFruit)
+}
+newFruit()
+
 
 //only render the fruit if it is not already part of the snake
 function renderNewFruit(){

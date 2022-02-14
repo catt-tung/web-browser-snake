@@ -55,22 +55,21 @@ function render(){
   theGrid.forEach((cell, idx) => {
     if (cell === 'S') {
       cellsEl[idx].className = 'snake'
-    } else if (cell === 'F') {
-      cellsEl[idx].classList = 'fruit'
+    // } else if (cell === null) {
+    //   cellsEl[idx].className.remove('snake')
     }
   })
   //render fruit - can add as an else if for the above but have to style the array as an 'F' from a randomFruit generator function. Render has to be constant while game is in play
   //render score
   //render timer
 }
-render()
 //create a timer to run and move the snake
 function moveSnake(){
   snakeHead = currentSnake[0]
   snakeTail = currentSnake[currentSnake.length - 1]
   currentSnake.pop()
   currentSnake.unshift(snakeHead + currentDirection)
-  render()
+  console.log(currentSnake)
 }
 //moveSnake function needs to work with the ticker to pop() the tail and unshift() the head
 
@@ -87,6 +86,7 @@ function tick(){
   console.log(theTimer)
   theTimer ++
   moveSnake()
+  render()
   console.log(currentSnake)
   if (theTimer === 5){
     clearInterval(timerIntervalId)
@@ -94,11 +94,24 @@ function tick(){
 }
 tick()
 
+//check if something is crossing a snake so we can use it in rendering a new fruit and later with the gameOver for if the snake head hits the snake body 
+function checkSnake(parameter){
+  if (currentSnake.includes(parameter)) {
+    return true
+  }
+}
+
 
 //generate fruit function
-function newFruit(){
-  let fruitPos = Math.floor(Math.random() * (288 - 0)) + 0;
-  console.log(fruitPos)
-  cellsEl[fruitPos].classList = 'fruit'
+//start with a random cell
+function newFruitCell(){
+  return Math.floor(Math.random() * (288 - 0)) + 0;
 }
-newFruit()
+
+//check if the fruit is a snake
+function renderNewFruit(){
+  let currentFruit = newFruitCell()
+  while (checkSnake(currentFruit) === true){
+    cellsEl[currentFruit].classList = 'fruit'
+  }
+}

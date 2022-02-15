@@ -61,7 +61,7 @@ function moveSnake(){
   } else {
     currentSnake.pop();
     cellsEl[snakeTail].classList.remove('snake');
-    currentSnake.unshift(snakeHead + currentDirection);
+    currentSnake.unshift(currentSnake[0] + currentDirection);
     console.log(currentSnake);
   }
   // console.log('moveSnake'+ snakeHead)
@@ -81,7 +81,13 @@ tickerEl()
 
 function runGame(){
   if (gameOver === null){
-    return tick()
+    return tick();
+  }
+  if (gameOver === 0){
+    return watchHitWalls();
+  }
+  if (gameOver === 1){
+    clearInterval(timerIntervalId);
   }
 }
 

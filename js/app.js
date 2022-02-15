@@ -3,7 +3,7 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit, min, sec, millisec
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit, min, sec, millisec, snakeBody
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
@@ -82,9 +82,12 @@ function tick(){
   moveSnake();
   renderSnake();
   console.log(currentSnake);
-  if (theTimer === 8){
+  if (theTimer === 5){
     clearInterval(timerIntervalId);
   }
+  // if (gameOver === 1){
+  //   clearInterval(timerIntervalId);
+  // }
   displayTimeElapsed()
 }
 tick()
@@ -125,3 +128,8 @@ function getsFood(){
   }
 }
 //for now I will keep this getsFood function here as a reference and not call on it - but it is embedded in the moveSnake function so that we can make use of the snakeTail
+
+//gameOver conditions
+// if snakeHead === walls, if snakeHead === snakeBody
+//gameOver = 1
+//define a snake body

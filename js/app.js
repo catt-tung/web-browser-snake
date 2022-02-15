@@ -3,7 +3,7 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTimer, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTicker, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
@@ -40,7 +40,7 @@ function init() {
   gameOver = null;
   currentSnake = [193, 192, 191, 190];
   currentDirection = 1;
-  theTimer = 0;
+  theTicker = 0;
 }
 init()
 
@@ -70,23 +70,23 @@ function moveSnake(){
 //create a timer to run and move the snake
 function tickerEl(){
   if (timerIntervalId){
-    theTimer = 0;
+    theTicker = 0;
     clearInterval(timerIntervalId);
   }
-  theSpeed = 100
+  theSpeed = 1000
   timerIntervalId = setInterval(tick, theSpeed);
 }
 tickerEl()
 
 function tick(){
-  console.log(theTimer);
-  theTimer ++;
+  console.log(theTicker);
+  theTicker ++;
   moveSnake();
   renderSnake();
   hitWalls();
   console.log(currentSnake);
   console.log(snakeHead)
-  if (theTimer === 15){
+  if (theTicker === 15){
     clearInterval(timerIntervalId);
   }
   // if (gameOver === 1){
@@ -97,9 +97,9 @@ function tick(){
 tick()
 
 function displayTimeElapsed(){
-  min = Math.floor(theTimer / 60);
-  sec = theTimer % 60;
-  millisec = theTimer / 1000;
+  min = Math.floor(theTicker / 60);
+  sec = theTicker % 60;
+  millisec = theTicker / 1000;
   displayTimer.innerText = `${min}:${sec}`;
 }
 
@@ -138,6 +138,7 @@ function getsFood(){
 //gameOver = 1
 //will have to use the width of the board since I only have access to the cells 
 function hitWalls() {
+  //first try it with direction === 1
   if ((16 - (snakeHead % 17)) === 1) {
     console.log('hitWalls' + (16 - (snakeHead % 17)))
     gameOver = 1

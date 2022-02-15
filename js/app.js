@@ -20,7 +20,7 @@ const displayTimer = document.querySelector('#displayTime')
 function createGridCells(){
   for (let i = 0; i <= 288; i++){
     const gridCell = document.createElement('div');
-    gridCell.className = 'cell';
+    gridCell.classList.add('cell');
     gridCell.id = 'cell' + i;
     gridCell.innerHTML = i;
     gridEl.appendChild(gridCell);
@@ -47,7 +47,7 @@ init()
 //create a render function to render the snake 
 function renderSnake(){
   //render a Snake by checking for a cell's ID to a currentSnake's element, add classlist of snake to it
-  currentSnake.forEach(snakeCell => cellsEl[snakeCell].classList = 'snake')
+  currentSnake.forEach(snakeCell => cellsEl[snakeCell].classList.add('snake'))
 }
 
 function moveSnake(){
@@ -113,7 +113,7 @@ function newFruit(){
   if (currentSnake.includes(currentFruit)) {
       return newFruit();
     } else {
-      cellsEl[currentFruit].classList = 'fruit'}
+      cellsEl[currentFruit].classList.add('fruit')}
   console.log(currentFruit)
 }
 newFruit()

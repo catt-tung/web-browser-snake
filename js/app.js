@@ -3,7 +3,7 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTicker, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTicker, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed, theWidth
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
@@ -37,10 +37,11 @@ console.log(cellsEl)
 function init() {
   theScore = 0;
   currentFruit = 0;
-  gameOver = null;
+  gameOver = null; //gameOver will have null, 0, or 1
   currentSnake = [193, 192, 191, 190];
   currentDirection = 1;
   theTicker = 0;
+  theWidth = 17;
 }
 init()
 
@@ -78,6 +79,12 @@ function tickerEl(){
 }
 tickerEl()
 
+function runGame(){
+  if (gameOver === null){
+    return tick()
+  }
+}
+
 function tick(){
   console.log(theTicker);
   theTicker ++;
@@ -85,8 +92,8 @@ function tick(){
   renderSnake();
   hitWalls();
   console.log(currentSnake);
-  console.log(snakeHead)
-  if (theTicker === 15){
+  console.log(currentSnake[0]);
+  if (theTicker === 15 || gameOver === 1){
     clearInterval(timerIntervalId);
   }
   // if (gameOver === 1){
@@ -139,9 +146,27 @@ function getsFood(){
 //will have to use the width of the board since I only have access to the cells 
 function hitWalls() {
   //first try it with direction === 1
-  if ((16 - (snakeHead % 17)) === 1) {
-    console.log('hitWalls' + (16 - (snakeHead % 17)))
-    gameOver = 1
+  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 1) {
+    console.log('hitWalls' + ((theWidth - 1) - (currentSnake[0] % theWidth)))
+    gameOver = 0
   }
-  console.log(gameOver)
+  console.log('gameOver' + gameOver)
+  // if (gameOver === 0 && currentDirection === 1) {
+  //   gameOver = 1
+  // }
+  // console.log('realGameOver' + gameOver)
+  if (gameOver === 0){
+    return watchHitWalls()
+  }
 }
+
+function watchHitWalls(){
+  moveSnake();
+  renderSnake();
+  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 0 && currentDirection === 1) {
+    gameOver = 1
+    } else {
+      gameOver = null
+    }
+    console.log('realGameOver' + gameOver)
+  }

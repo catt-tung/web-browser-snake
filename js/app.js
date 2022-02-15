@@ -53,10 +53,16 @@ function renderSnake(){
 function moveSnake(){
   snakeHead = currentSnake[0];
   snakeTail = currentSnake[currentSnake.length - 1];
-  currentSnake.pop();
-  cellsEl[snakeTail].classList.remove('snake');
-  currentSnake.unshift(snakeHead + currentDirection);
-  console.log(currentSnake);
+  if (currentSnake[0] === currentFruit){
+    currentSnake.push(snakeTail);
+    cellsEl[snakeTail].classList.add('snake');
+    newFruit()
+  } else {
+    currentSnake.pop();
+    cellsEl[snakeTail].classList.remove('snake');
+    currentSnake.unshift(snakeHead + currentDirection);
+    console.log(currentSnake);
+  }
 }
 //moveSnake function needs to work with the ticker to pop() the tail and unshift() the head
 
@@ -76,7 +82,7 @@ function tick(){
   moveSnake();
   renderSnake();
   console.log(currentSnake);
-  if (theTimer === 6){
+  if (theTimer === 8){
     clearInterval(timerIntervalId);
   }
   displayTimeElapsed()
@@ -92,14 +98,6 @@ function displayTimeElapsed(){
 
 
 //Fruit generation 
-//check if cells are available
-function checkSnake(parameter){
-  if (currentSnake.includes(parameter)) {
-    return true
-  }
-}
-
-
 //generate fruit function
 
 function newFruitCell(){
@@ -119,6 +117,11 @@ function newFruit(){
 newFruit()
 
 function getsFood(){
-  //if the snakeHead === currentFruit, remove currentFruit and generate a new fruit. Call this function in the move snake function? Or push the tail on 
+  //if the snakeHead === currentFruit, remove currentFruit and generate a new fruit. Call this function in the move snake function?
+  if (currentSnake[0] === currentFruit){
+    currentSnake.push(snakeTail);
+    cellsEl[snakeTail].classList.add('snake');
+    newFruit()
+  }
 }
-
+//for now I will keep this getsFood function here as a reference and not call on it - but it is embedded in the moveSnake function so that we can make use of the snakeTail

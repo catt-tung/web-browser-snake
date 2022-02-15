@@ -146,7 +146,7 @@ function getsFood(){
 //will have to use the width of the board since I only have access to the cells 
 function hitWalls() {
   //first try it with direction === 1
-  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 1) {
+  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 1 && currentDirection === 1) {
     console.log('hitWalls' + ((theWidth - 1) - (currentSnake[0] % theWidth)))
     gameOver = 0
   }

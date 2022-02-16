@@ -67,16 +67,16 @@ function moveSnake(){
 
 //event listeners for directional change
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowUp'){
+  if (event.key === 'ArrowUp' && (currentDirection === -1 || currentDirection === 1)){
     currentDirection = -theWidth
   };
-  if (event.key === 'ArrowDown'){
+  if (event.key === 'ArrowDown' && (currentDirection === -1 || currentDirection === 1)){
     currentDirection = theWidth
   };
-  if (event.key === 'ArrowLeft'){
+  if (event.key === 'ArrowLeft' && (currentDirection === -theWidth || currentDirection === theWidth)){
     currentDirection = -1
   };
-  if (event.key === 'ArrowRight'){
+  if (event.key === 'ArrowRight' && (currentDirection === -theWidth || currentDirection === theWidth)){
     currentDirection = 1
   }
 })
@@ -103,7 +103,7 @@ function tick(){
   hitSelf();
   console.log(currentSnake);
   console.log(currentSnake[0]);
-  if (theTicker === 50 || gameOver === 1){
+  if (theTicker === 70 || gameOver === 1){
     clearInterval(timerIntervalId);
   }
   displayTimeElapsed()
@@ -157,10 +157,19 @@ function hitWalls() {
   if (currentSnake[0] % theWidth === 16 && currentDirection === 1) {
     gameOver = 0
   }
-  console.log('gameOver' + gameOver)
+
   if (gameOver === 0){
-    setInterval(watchHitWalls(), theSpeed);
+    setTimeout(watchHitWalls, theSpeed);
   }
+  //conditional for up
+  if (currentSnake[0] - theWidth <= 0 && currentDirection === -theWidth && currentSnake.some(snakeCell => snakeCell === currentSnake[0] - theWidth)) {
+    return currentSnake[0] + 
+  }
+  //conditional for down
+  if (currentSnake[0] + theWidth >= 289 && currentDirection === theWidth){
+    gameOver = 1
+  }
+  console.log('gameOver' + gameOver)
 }
 
 function watchHitWalls(){
@@ -177,9 +186,10 @@ function watchHitWalls(){
   }
 
   //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
+  //sometimes seems buggy but have to test it more. Other way is to check if the cell has classList snake
 function hitSelf(){
   for (let i = 1; i <= currentSnake.length; i++){
-    if (currentSnake[0] === currentSnake[i]){
+    if (currentSnake[0] + currentDirection === currentSnake[i]){
       gameOver = 1
     }
     console.log('hitSelf' + gameOver)

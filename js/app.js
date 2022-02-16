@@ -107,6 +107,7 @@ function tick(){
     clearInterval(timerIntervalId);
   }
   displayTimeElapsed()
+  displayScore()
 }
 tick()
 
@@ -158,7 +159,7 @@ function hitWalls() {
   }
   console.log('gameOver' + gameOver)
   if (gameOver === 0){
-    return watchHitWalls()
+    setInterval(watchHitWalls(), theSpeed);
   }
 }
 
@@ -175,10 +176,17 @@ function watchHitWalls(){
     console.log('realGameOver' + gameOver)
   }
 
+  //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
 function hitSelf(){
   for (let i = 1; i <= currentSnake.length; i++){
     if (currentSnake[0] === currentSnake[i]){
       gameOver = 1
     }
+    console.log('hitSelf' + gameOver)
   }
+}
+
+function displayScore(){
+  theScore = currentSnake.length - 4;
+  scoreEl.innerText = theScore
 }

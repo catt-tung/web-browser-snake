@@ -65,13 +65,30 @@ function moveSnake(){
 }
 //moveSnake function needs to work with the ticker to pop() the tail and unshift() the head
 
+//event listeners for directional change
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowUp'){
+    currentDirection = -theWidth
+  };
+  if (event.key === 'ArrowDown'){
+    currentDirection = theWidth
+  };
+  if (event.key === 'ArrowLeft'){
+    currentDirection = -1
+  };
+  if (event.key === 'ArrowRight'){
+    currentDirection = 1
+  }
+})
+
+
 //create a timer to run and move the snake
 function tickerEl(){
   if (timerIntervalId){
     theTicker = 0;
     clearInterval(timerIntervalId);
   }
-  theSpeed = 1000
+  theSpeed = 500
   timerIntervalId = setInterval(tick, theSpeed);
 }
 tickerEl()
@@ -86,7 +103,7 @@ function tick(){
   hitSelf();
   console.log(currentSnake);
   console.log(currentSnake[0]);
-  if (theTicker === 15 || gameOver === 1){
+  if (theTicker === 50 || gameOver === 1){
     clearInterval(timerIntervalId);
   }
   displayTimeElapsed()

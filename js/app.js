@@ -90,24 +90,29 @@ function runGame(){
     clearInterval(timerIntervalId);
   }
 }
+runGame()
 
 function tick(){
   console.log(theTicker);
   theTicker ++;
-  moveSnake();
-  renderSnake();
-  hitWalls();
-  console.log(currentSnake);
-  console.log(currentSnake[0]);
-  if (theTicker === 15 || gameOver === 1){
+  if (currentSnake[0] % theWidth === 16 && currentDirection === 1){
+    gameOver = 0
+  } else {
+    moveSnake();
+    renderSnake();
+    // hitWalls();
+    console.log(currentSnake);
+    console.log(currentSnake[0]);
+    if (theTicker === 15 || gameOver === 1){
     clearInterval(timerIntervalId);
+  }
   }
   // if (gameOver === 1){
   //   clearInterval(timerIntervalId);
   // }
   displayTimeElapsed()
 }
-tick()
+// tick()
 
 function displayTimeElapsed(){
   min = Math.floor(theTicker / 60);
@@ -150,29 +155,31 @@ function getsFood(){
 // if snakeHead === walls, if snakeHead === snakeBody
 //gameOver = 1
 //will have to use the width of the board since I only have access to the cells 
-function hitWalls() {
-  //first try it with direction === 1
-  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 1 && currentDirection === 1) {
-    console.log('hitWalls' + ((theWidth - 1) - (currentSnake[0] % theWidth)))
-    gameOver = 0
-  }
-  console.log('gameOver' + gameOver)
-  // if (gameOver === 0 && currentDirection === 1) {
-  //   gameOver = 1
-  // }
-  // console.log('realGameOver' + gameOver)
-  if (gameOver === 0){
-    return watchHitWalls()
-  }
-}
+// function hitWalls() {
+//   //first try it with direction === 1
+//   if (currentSnake[0] % theWidth === 16 && currentDirection === 1) {
+//     console.log('hitWalls' + ((theWidth) - (currentSnake[0] % theWidth)))
+//     gameOver = 0
+//   }
+//   console.log('gameOver' + gameOver)
+//   // if (gameOver === 0 && currentDirection === 1) {
+//   //   gameOver = 1
+//   // }
+//   // console.log('realGameOver' + gameOver)
+//   if (gameOver === 0){
+//     return watchHitWalls()
+//   }
+// }
 
 function watchHitWalls(){
   moveSnake();
-  renderSnake();
-  if (((theWidth - 1) - (currentSnake[0] % theWidth)) === 0 && currentDirection === 1) {
-    gameOver = 1
+  // renderSnake();
+  if (currentSnake[0] % theWidth === 0 && currentDirection === 1) {
+    gameOver = 1;
+    cellsEl[snakeTail].classList.add('snake');
     } else {
-      gameOver = null
+      gameOver = null;
+      runGame();
     }
     console.log('realGameOver' + gameOver)
   }

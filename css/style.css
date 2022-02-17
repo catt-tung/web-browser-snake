@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(65, 103, 133);
+  background-color: rgb(87, 112, 158);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   height: 100vh;
   width: 100vw;
@@ -32,15 +32,25 @@ body{
   height: 3vmin;
 }
 
-.info {
+#info {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 60px;
+}
+
+.reset {
+  border-radius: 5px;
+  background-color: bisque;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 3px;
 }
 
 /* Create a class of snake and fruit then use JS to add to it */
 .snake {
   background-color: olivedrab;
   border-radius: 50%;
+  box-shadow: 0 0 10px darkslategrey;
 }
 
 .fruit {

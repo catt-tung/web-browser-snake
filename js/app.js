@@ -28,7 +28,7 @@ function createGridCells(){
     const gridCell = document.createElement('div');
     gridCell.classList.add('cell');
     gridCell.id = 'cell' + i;
-    // gridCell.innerHTML = i;
+    gridCell.innerHTML = i;
     gridEl.appendChild(gridCell);
   }
 }
@@ -113,7 +113,6 @@ function moveSnake(){
     currentSnake.pop();
     cellsEl[snakeTail].classList.remove('snake');
     currentSnake.unshift(currentSnake[0] + currentDirection);
-    console.log(currentSnake);
   }
 }
 //moveSnake function needs to work with the ticker to pop() the tail and unshift() the head
@@ -140,7 +139,7 @@ function tickerEl(){
     theTicker = 0;
     clearInterval(tickerIntervalId);
   }
-  theSpeed = 250
+  theSpeed = 200
   tickerIntervalId = setInterval(tick, theSpeed);
 }
 
@@ -148,8 +147,8 @@ function tick(){
   theTicker ++;
   moveSnake();
   renderSnake();
-  increaseSpeed();
-  console.log(theSpeed);
+  // increaseSpeed();
+  // console.log(theSpeed);
   hitSelf();
   if (theTicker === 1000 || gameOver === 1){
     clearInterval(tickerIntervalId);
@@ -184,14 +183,13 @@ function newFruit(){
       return newFruit();
     } else {
       cellsEl[currentFruit].classList.add('fruit')}
-  console.log(currentFruit)
 }
 
   //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
   //sometimes seems buggy (think there is a delay when it actually renders) Other way is to check if the cell has classList snake but will probably have the same problem
 function hitSelf(){
   for (let i = 1; i <= currentSnake.length; i++){
-    if (currentSnake[0] + currentDirection === currentSnake[i]){
+    if (currentSnake[0] === currentSnake[i]){
       gameOver = 1
     }
     console.log('hitSelf' + gameOver)
@@ -212,7 +210,10 @@ function clearGrid(){
 function increaseSpeed(){
   if (theTicker > 0 && theSpeed > 50 && theTicker % 100 === 0){
     theSpeed = theSpeed - 10
-  } 
+  } else {
+    if (theSpeed === 50)
+    return
+  }
 }
 
 

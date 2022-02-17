@@ -15,6 +15,7 @@ const scoreEl = document.querySelector('#theScore')
 const displayTimer = document.querySelector('#displayTime')
 const resetBtn = document.querySelector('.reset')
 const squaresEl = document.querySelector('#squaresTravelled')
+const msgEl = document.getElementById('theMessage')
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetBtn.addEventListener('click', clearGrid) 
@@ -36,6 +37,17 @@ createGridCells()
 //anywhere under the createGridCells (maybe put that at the constant eventually), cache the cells as references
 const cellsEl = document.querySelectorAll('.cell')
 
+//a start game message
+function gameMessage(){
+  if (theTicker === 0) {
+    msgEl.innerHTML = "Press space or any arrow key to start"
+  } else if (gameOver === null) {
+    msgEl.innerHTML = "Eat apples!"
+  } else if (gameOver === 1) {
+    msgEl.innerHTML = `You ate ${currentSnake.length - 4} apples while travelling ${theTicker} squares!`
+  }
+}
+gameMessage()
 
 //Any arrow key or spacebar to start function
 document.addEventListener('keydown', (e) => {
@@ -122,7 +134,6 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
-
 //create a timer to run and move the snake
 function tickerEl(){
   if (tickerIntervalId){
@@ -155,6 +166,7 @@ function tick(){
   // displayTimeElapsed()
   displayTravel()
   displayScore()
+  gameMessage()
 }
 
 //display squares travelled
@@ -207,6 +219,10 @@ function clearGrid(){
   for (let i = 0; i <= 288; i++){
     cellsEl[i].classList.remove('snake', 'fruit')
   }
+  squaresEl.innerText = "0"
+  scoreEl.innerText = "0"
+  theTicker = 0
+  gameMessage()
 }
 
 

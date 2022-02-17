@@ -14,7 +14,7 @@ const gridEl = document.querySelector('.grid')
 const scoreEl = document.querySelector('#theScore')
 const displayTimer = document.querySelector('#displayTime')
 const resetBtn = document.querySelector('.reset')
-const displaySq = document.querySelector('#squaresTravelled')
+const squaresEl = document.querySelector('#squaresTravelled')
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetBtn.addEventListener('click', clearGrid) 
@@ -153,7 +153,13 @@ function tick(){
     resetBtn.removeAttribute("hidden");
   }
   // displayTimeElapsed()
+  displayTravel()
   displayScore()
+}
+
+//display squares travelled
+function displayTravel(){
+  squaresEl.innerText = `${theTicker}`
 }
 
 //display the time

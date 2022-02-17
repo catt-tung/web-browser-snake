@@ -56,6 +56,22 @@ function moveSnake(){
     currentSnake.push(snakeTail);
     cellsEl[snakeTail].classList.add('snake');
     newFruit()
+  } else if (currentSnake[0] - theWidth <= 0 && currentDirection === -theWidth) {
+    currentSnake.pop();
+    cellsEl[snakeTail].classList.remove('snake');
+    currentSnake.unshift(currentSnake[0] + 272)
+  } else if (currentSnake[0] % theWidth === 16 && currentDirection === 1){ 
+    currentSnake.pop();
+    cellsEl[snakeTail].classList.remove('snake');
+    currentSnake.unshift(currentSnake[0] - 16);
+  } else if (currentSnake[0] + theWidth >= 289 && currentDirection === theWidth) { 
+    currentSnake.pop();
+    cellsEl[snakeTail].classList.remove('snake');
+    currentSnake.unshift(currentSnake[0] - 272);
+  } else if (currentSnake[0] % theWidth === 0 && currentDirection === -1) { 
+    currentSnake.pop();
+    cellsEl[snakeTail].classList.remove('snake');
+    currentSnake.unshift(currentSnake[0] + 16)
   } else {
     currentSnake.pop();
     cellsEl[snakeTail].classList.remove('snake');
@@ -88,7 +104,7 @@ function tickerEl(){
     theTicker = 0;
     clearInterval(timerIntervalId);
   }
-  theSpeed = 500
+  theSpeed = 250
   timerIntervalId = setInterval(tick, theSpeed);
 }
 tickerEl()
@@ -99,11 +115,10 @@ function tick(){
   theTicker ++;
   moveSnake();
   renderSnake();
-  hitWalls();
   hitSelf();
   console.log(currentSnake);
   console.log(currentSnake[0]);
-  if (theTicker === 70 || gameOver === 1){
+  if (theTicker === 10 || gameOver === 1){
     clearInterval(timerIntervalId);
   }
   displayTimeElapsed()
@@ -118,10 +133,7 @@ function displayTimeElapsed(){
   displayTimer.innerText = `${min}:${sec}`;
 }
 
-
-//Fruit generation 
 //generate fruit function
-
 function newFruitCell(){
   return Math.floor(Math.random() * (288 - 0)) + 0;
 }
@@ -146,44 +158,6 @@ function getsFood(){
     newFruit()
   }
 }
-//for now I will keep this getsFood function here as a reference and not call on it - but it is embedded in the moveSnake function so that we can make use of the snakeTail
-
-//gameOver conditions
-// if snakeHead === walls, if snakeHead === snakeBody
-//gameOver = 1
-//will have to use the width of the board since I only have access to the cells 
-function hitWalls() {
-  //first try it with direction === 1
-  if (currentSnake[0] % theWidth === 16 && currentDirection === 1) {
-    gameOver = 0
-  }
-
-  if (gameOver === 0){
-    setTimeout(watchHitWalls, theSpeed);
-  }
-  //conditional for up
-  if (currentSnake[0] - theWidth <= 0 && currentDirection === -theWidth && currentSnake.some(snakeCell => snakeCell === currentSnake[0] - theWidth)) {
-    return currentSnake[0] + 
-  }
-  //conditional for down
-  if (currentSnake[0] + theWidth >= 289 && currentDirection === theWidth){
-    gameOver = 1
-  }
-  console.log('gameOver' + gameOver)
-}
-
-function watchHitWalls(){
-  moveSnake();
-  if (currentSnake[0] % theWidth === 0 && currentDirection === 1) 
-    //code here the other direction conditions with ||
-    {
-    gameOver = 1
-    cellsEl[snakeTail].classList.add('snake')
-    } else {
-      gameOver = null
-    }
-    console.log('realGameOver' + gameOver)
-  }
 
   //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
   //sometimes seems buggy but have to test it more. Other way is to check if the cell has classList snake

@@ -144,43 +144,32 @@ function tickerEl(){
   tickerIntervalId = setInterval(tick, theSpeed);
 }
 
-//Create a normal running timer that runs the actual time not the ticker speed
-// function timerEl(){
-//   if(timerIntervalId){
-//     seconds = 0;
-//     clearInterval(timerIntervalId);
-//   }
-//   timerIntervalId = setInterval(tick, 1000)
-// }
-
 function tick(){
   theTicker ++;
   moveSnake();
   renderSnake();
+  increaseSpeed();
+  console.log(theSpeed);
   hitSelf();
   if (theTicker === 1000 || gameOver === 1){
     clearInterval(tickerIntervalId);
     gameOver = 1;
     resetBtn.removeAttribute("hidden");
   }
-  // displayTimeElapsed()
-  displayTravel()
-  displayScore()
-  gameMessage()
+  displayTravel();
+  displayScore();
+  gameMessage();
 }
 
-//display squares travelled
+//display squares travelled and the score
 function displayTravel(){
-  squaresEl.innerText = `${theTicker}`
+  squaresEl.innerText = theTicker
 }
 
-//display the time
-// function displayTimeElapsed(){
-//   min = Math.floor(seconds / 60);
-//   sec = seconds % 60;
-//   millisec = seconds / 1000;
-//   displayTimer.innerText = `${min}:${sec}.${millisec}`;
-// }
+function displayScore(){
+  theScore = currentSnake.length - 4;
+  scoreEl.innerText = theScore
+}
 
 //generate fruit function
 function newFruitCell(){
@@ -198,9 +187,8 @@ function newFruit(){
   console.log(currentFruit)
 }
 
-
   //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
-  //sometimes seems buggy but have to test it more. Other way is to check if the cell has classList snake
+  //sometimes seems buggy (think there is a delay when it actually renders) Other way is to check if the cell has classList snake but will probably have the same problem
 function hitSelf(){
   for (let i = 1; i <= currentSnake.length; i++){
     if (currentSnake[0] + currentDirection === currentSnake[i]){
@@ -208,11 +196,6 @@ function hitSelf(){
     }
     console.log('hitSelf' + gameOver)
   }
-}
-
-function displayScore(){
-  theScore = currentSnake.length - 4;
-  scoreEl.innerText = theScore
 }
 
 function clearGrid(){
@@ -223,6 +206,13 @@ function clearGrid(){
   scoreEl.innerText = "0"
   theTicker = 0
   gameMessage()
+}
+
+//function to increase the speed every 100 ticks until 50
+function increaseSpeed(){
+  if (theTicker > 0 && theSpeed > 50 && theTicker % 100 === 0){
+    theSpeed = theSpeed - 10
+  } 
 }
 
 

@@ -3,16 +3,18 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, theTicker, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed, theWidth
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed, theWidth
+
+let theTicker = 0
 
 /*------------------------ Cached Element References ------------------------*/
 const gridEl = document.querySelector('.grid')
 const scoreEl = document.querySelector('#theScore')
 const displayTimer = document.querySelector('#displayTime')
-
+const resetBtn = document.querySelector('.reset')
 
 /*----------------------------- Event Listeners -----------------------------*/
-
+resetBtn.addEventListener('click', clearGrid) 
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -31,6 +33,24 @@ createGridCells()
 //anywhere under the createGridCells (maybe put that at the constant eventually), cache the cells as references
 const cellsEl = document.querySelectorAll('.cell')
 
+
+//Any arrow key or spacebar to start function
+document.addEventListener('keydown', (e) => {
+  if (
+    (gameOver === 1 || theTicker === 0) &&
+    (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === ' ') 
+    ) {
+      startGame()
+  }
+})
+
+function startGame() {
+  init()
+  tickerEl()
+  tick()
+  newFruit()
+}
+
 //create initialization function
 function init() {
   theScore = 0;
@@ -40,8 +60,9 @@ function init() {
   currentDirection = 1;
   theTicker = 0;
   theWidth = 17;
+  resetBtn.setAttribute("hidden", true)
 }
-init()
+
 
 //create a render function to render the snake 
 function renderSnake(){
@@ -107,7 +128,7 @@ function tickerEl(){
   theSpeed = 250
   timerIntervalId = setInterval(tick, theSpeed);
 }
-tickerEl()
+
 
 
 function tick(){
@@ -120,11 +141,13 @@ function tick(){
   console.log(currentSnake[0]);
   if (theTicker === 10 || gameOver === 1){
     clearInterval(timerIntervalId);
+    gameOver = 1;
+    resetBtn.removeAttribute("hidden");
   }
   displayTimeElapsed()
   displayScore()
 }
-tick()
+
 
 function displayTimeElapsed(){
   min = Math.floor(theTicker / 60);
@@ -148,16 +171,7 @@ function newFruit(){
       cellsEl[currentFruit].classList.add('fruit')}
   console.log(currentFruit)
 }
-newFruit()
 
-function getsFood(){
-  //if the snakeHead === currentFruit, remove currentFruit and generate a new fruit. Call this function in the move snake function?
-  if (currentSnake[0] === currentFruit){
-    currentSnake.push(snakeTail);
-    cellsEl[snakeTail].classList.add('snake');
-    newFruit()
-  }
-}
 
   //hitSelf function is trying to loop through the snake from the second element to see if it hits itself
   //sometimes seems buggy but have to test it more. Other way is to check if the cell has classList snake
@@ -174,3 +188,11 @@ function displayScore(){
   theScore = currentSnake.length - 4;
   scoreEl.innerText = theScore
 }
+
+function clearGrid(){
+  for (let i = 0; i <= 288; i++){
+    cellsEl[i].classList.remove('snake', 'fruit')
+  }
+}
+
+

@@ -3,7 +3,9 @@
 
 
 /*-------------------------------- Variables --------------------------------*/
-let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, timerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed, theWidth
+let theGrid, theScore, gameOver, currentSnake, currentDirection, snakeHead, snakeTail, tickerIntervalId, currentFruit, min, sec, millisec, snakeBody, theSpeed, theWidth
+
+// timerIntervalId, seconds, endTime, min, sec
 
 let theTicker = 0
 
@@ -12,6 +14,7 @@ const gridEl = document.querySelector('.grid')
 const scoreEl = document.querySelector('#theScore')
 const displayTimer = document.querySelector('#displayTime')
 const resetBtn = document.querySelector('.reset')
+const displaySq = document.querySelector('#squaresTravelled')
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetBtn.addEventListener('click', clearGrid) 
@@ -24,7 +27,7 @@ function createGridCells(){
     const gridCell = document.createElement('div');
     gridCell.classList.add('cell');
     gridCell.id = 'cell' + i;
-    gridCell.innerHTML = i;
+    // gridCell.innerHTML = i;
     gridEl.appendChild(gridCell);
   }
 }
@@ -45,6 +48,7 @@ document.addEventListener('keydown', (e) => {
 })
 
 function startGame() {
+  clearGrid()
   init()
   tickerEl()
   tick()
@@ -121,40 +125,44 @@ document.addEventListener('keydown', (event) => {
 
 //create a timer to run and move the snake
 function tickerEl(){
-  if (timerIntervalId){
+  if (tickerIntervalId){
     theTicker = 0;
-    clearInterval(timerIntervalId);
+    clearInterval(tickerIntervalId);
   }
   theSpeed = 250
-  timerIntervalId = setInterval(tick, theSpeed);
+  tickerIntervalId = setInterval(tick, theSpeed);
 }
 
-
+//Create a normal running timer that runs the actual time not the ticker speed
+// function timerEl(){
+//   if(timerIntervalId){
+//     seconds = 0;
+//     clearInterval(timerIntervalId);
+//   }
+//   timerIntervalId = setInterval(tick, 1000)
+// }
 
 function tick(){
-  console.log(theTicker);
   theTicker ++;
   moveSnake();
   renderSnake();
   hitSelf();
-  console.log(currentSnake);
-  console.log(currentSnake[0]);
-  if (theTicker === 10 || gameOver === 1){
-    clearInterval(timerIntervalId);
+  if (theTicker === 1000 || gameOver === 1){
+    clearInterval(tickerIntervalId);
     gameOver = 1;
     resetBtn.removeAttribute("hidden");
   }
-  displayTimeElapsed()
+  // displayTimeElapsed()
   displayScore()
 }
 
-
-function displayTimeElapsed(){
-  min = Math.floor(theTicker / 60);
-  sec = theTicker % 60;
-  millisec = theTicker / 1000;
-  displayTimer.innerText = `${min}:${sec}`;
-}
+//display the time
+// function displayTimeElapsed(){
+//   min = Math.floor(seconds / 60);
+//   sec = seconds % 60;
+//   millisec = seconds / 1000;
+//   displayTimer.innerText = `${min}:${sec}.${millisec}`;
+// }
 
 //generate fruit function
 function newFruitCell(){

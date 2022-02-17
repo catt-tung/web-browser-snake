@@ -17,6 +17,10 @@ The following technologies were used to build this app:
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+## Pseudocode
+I used Trello to plan the workings of this entire game - which can be found [here](https://trello.com/b/u7Z8Ejrj/snake-web-browser-pseudocode)
+
 ## How to play
 The goal of the game is to have the snake (you!) collect as many apples without running into yourself. Snake is played using the control keys on the keyboard - the snake will move on its own while the timer is running, use the keyboard arrows to change its direction. Every time a fruit is eaten, the Snake will grow longer.
 ## Stretch Goals

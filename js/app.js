@@ -28,7 +28,7 @@ function createGridCells(){
     const gridCell = document.createElement('div');
     gridCell.classList.add('cell');
     gridCell.id = 'cell' + i;
-    gridCell.innerHTML = i;
+    // gridCell.innerHTML = i;
     gridEl.appendChild(gridCell);
   }
 }
@@ -206,7 +206,7 @@ function clearGrid(){
   gameMessage()
 }
 
-//function to increase the speed every 100 ticks until 50
+//function to increase the speed every 10 apples until 50
 function increaseSpeed(){
   if (theTicker > 0 && theSpeed > 50 && theTicker % 100 === 0){
     theSpeed = theSpeed - 10

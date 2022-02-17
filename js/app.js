@@ -179,9 +179,11 @@ function newFruit(){
   //currentFruit is in init function as 0, remove any fruit cell at the beginning so when called it can remove the previous one
   cellsEl[currentFruit].classList.remove('fruit');
   currentFruit = newFruitCell()
-  if (currentSnake.includes(currentFruit)) {
+  if (currentFruit === 0){
+    return newFruit();
+  } else if (currentSnake.includes(currentFruit)) {
       return newFruit();
-    } else {
+  } else {
       cellsEl[currentFruit].classList.add('fruit')}
 }
 

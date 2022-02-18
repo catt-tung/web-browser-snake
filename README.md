@@ -1,5 +1,6 @@
 # The Garden of Eden's Snake
 <img src="https://i.ibb.co/fD8Yqxv/Snake-screenshot.png" alt="Snake-screenshot" border="0">
+
 ### [Link to game placeholder]
 ## About Snake & Why I Built It
 The original conception of Snake came about in 1976 as a two-player arcade game called _Blockade_. It was popularized as a preloaded game on Nokia mobile phones in 1998 by Taneli Armanto, which opened up an entirely new paradigm of use case for mobile phones. Call it the OG App, today we use our phones for much more than just calls, in large part thanks to this humble yet insanely addicting game.

@@ -76,7 +76,6 @@ function init() {
   currentDirection = 1;
   theTicker = 0;
   theWidth = 17;
-  resetBtn.setAttribute("hidden", true)
 }
 
 
@@ -108,7 +107,7 @@ function moveSnake(){
   } else if (currentSnake[0] % theWidth === 0 && currentDirection === -1) { 
     currentSnake.pop();
     cellsEl[snakeTail].classList.remove('snake');
-    currentSnake.unshift(currentSnake[0] + 16)
+    currentSnake.unshift(currentSnake[0] + 16);
   } else {
     currentSnake.pop();
     cellsEl[snakeTail].classList.remove('snake');
@@ -139,7 +138,7 @@ function tickerEl(){
     theTicker = 0;
     clearInterval(tickerIntervalId);
   }
-  theSpeed = 200
+  theSpeed = 250
   tickerIntervalId = setInterval(tick, theSpeed);
 }
 
@@ -147,10 +146,9 @@ function tick(){
   theTicker ++;
   moveSnake();
   renderSnake();
-  // increaseSpeed();
-  // console.log(theSpeed);
+  increaseSpeed();
   hitSelf();
-  if (theTicker === 1000 || gameOver === 1){
+  if (gameOver === 1){
     clearInterval(tickerIntervalId);
     gameOver = 1;
     resetBtn.removeAttribute("hidden");
@@ -194,7 +192,6 @@ function hitSelf(){
     if (currentSnake[0] === currentSnake[i]){
       gameOver = 1
     }
-    console.log('hitSelf' + gameOver)
   }
 }
 
@@ -206,16 +203,16 @@ function clearGrid(){
   scoreEl.innerText = "0"
   theTicker = 0
   gameMessage()
+  resetBtn.setAttribute("hidden", true)
 }
 
-//function to increase the speed every 10 apples until 50
+//function to increase the speed every 100 squares travelled until 50
 function increaseSpeed(){
-  if (theTicker > 0 && theSpeed > 50 && theTicker % 100 === 0){
+  if (theTicker > 0 && theSpeed > 30 && theTicker % 100 === 0){
     theSpeed = theSpeed - 10
-  } else {
-    if (theSpeed === 50)
+  } else if (theSpeed === 30) {
     return
-  }
+  }  
 }
 
 

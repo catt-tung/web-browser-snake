@@ -1,5 +1,5 @@
-# web-browser-snake (timer-works branch)
-### [Image placeholder]
+# The Garden of Eden's Snake
+### (assets/Snake-screenshot.png)
 ### [Link to game placeholder]
 ## About Snake & Why I Built It
 The original conception of Snake came about in 1976 as a two-player arcade game called _Blockade_. It was popularized as a preloaded game on Nokia mobile phones in 1998 by Taneli Armanto, which opened up an entirely new paradigm of use case for mobile phones. Call it the OG App, today we use our phones for much more than just calls, in large part thanks to this humble yet insanely addicting game.
@@ -22,7 +22,7 @@ The following technologies were used to build this app:
 I used Trello to plan the workings of this entire game - which can be found [here](https://trello.com/b/u7Z8Ejrj/snake-web-browser-pseudocode)
 
 ## How to play
-The goal of the game is to have the snake (you!) collect as many apples without running into yourself. Snake is played using the control keys on the keyboard - the snake will move on its own while the timer is running, use the keyboard arrows to change its direction. Every time a fruit is eaten, the Snake will grow longer.
+The goal of the game is to have the snake (you!) collect as many apples without running into yourself. Snake is played using the control keys on the keyboard - the snake will move on its own while the timer is running, use the keyboard arrows to change its direction. Every time a fruit is eaten, the Snake will grow longer. As the game progresses, the speed of the snake will very subtly get faster.
 ## Stretch Goals
 Ideally if there is more time I'd like to hack about with this code, I'd like to build: 
 + A mobile version with on-screen touch buttons to play on mobile

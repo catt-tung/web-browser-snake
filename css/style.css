@@ -76,3 +76,17 @@ h1 {
   border-radius: 50%;
   box-shadow: 0 0 15px rgb(110, 16, 9);
 }
+
+.button-section1{
+  margin: 10px 0 0 0
+}
+.button-section2{
+  margin: 0 0 20px 0
+}
+
+#down{
+  transform:rotate(180deg); 
+  -webkit-transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -ms-transform:rotate(180deg);
+}

@@ -16,6 +16,10 @@ const displayTimer = document.querySelector('#displayTime')
 const resetBtn = document.querySelector('.reset')
 const squaresEl = document.querySelector('#squaresTravelled')
 const msgEl = document.getElementById('theMessage')
+const up = document.getElementById('up')
+const down = document.getElementById('down')
+const left = document.getElementById('left')
+const right = document.getElementById('right')
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetBtn.addEventListener('click', clearGrid) 
@@ -129,6 +133,23 @@ document.addEventListener('keydown', (event) => {
   };
   if (event.key === 'ArrowRight' && (currentDirection === -theWidth || currentDirection === theWidth)){
     currentDirection = 1
+  }
+})
+
+//event listeners for directional change for mobile/on screen arrows
+up.addEventListener("click", () => {
+  if (currentDirection === -1 || currentDirection === 1) {
+    currentDirection = -theWidth
+  } else {
+    return
+  }
+})
+
+down.addEventListener("click", () => {
+  if (currentDirection === -1 || currentDirection === 1) {
+    currentDirection = theWidth
+  } else {
+    return
   }
 })
 

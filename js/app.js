@@ -153,6 +153,22 @@ down.addEventListener("click", () => {
   }
 })
 
+left.addEventListener("click", () => {
+  if (currentDirection === theWidth || currentDirection === -theWidth) {
+    currentDirection = -1
+  } else {
+    return
+  }
+})
+
+right.addEventListener("click", () => {
+  if (currentDirection === theWidth || currentDirection === -theWidth) {
+    currentDirection = 1
+  } else {
+    return
+  }
+})
+
 //create a timer to run and move the snake
 function tickerEl(){
   if (tickerIntervalId){

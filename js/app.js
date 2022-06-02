@@ -20,10 +20,11 @@ const up = document.getElementById('up')
 const down = document.getElementById('down')
 const left = document.getElementById('left')
 const right = document.getElementById('right')
+const startBtn = document.querySelector('.start-button')
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetBtn.addEventListener('click', clearGrid) 
-
+startBtn.addEventListener("click", startGame)
 
 /*-------------------------------- Functions --------------------------------*/
 //create a grid for the snake to travel on
@@ -44,7 +45,7 @@ const cellsEl = document.querySelectorAll('.cell')
 //a start game message
 function gameMessage(){
   if (theTicker === 0) {
-    msgEl.innerHTML = "Press space or any arrow key to start"
+    msgEl.innerHTML = "Press space, any arrow key, or the start button to start"
   } else if (gameOver === null) {
     msgEl.innerHTML = "Eat apples!"
   } else if (gameOver === 1) {
@@ -63,12 +64,16 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
+//Hide startbutton if game is running
+
+
 function startGame() {
   clearGrid()
   init()
   tickerEl()
   tick()
   newFruit()
+  startBtn.setAttribute("hidden", true)
 }
 
 //create initialization function
@@ -240,7 +245,8 @@ function clearGrid(){
   scoreEl.innerText = "0"
   theTicker = 0
   gameMessage()
-  resetBtn.setAttribute("hidden", true)
+  resetBtn.setAttribute("hidden", true);
+  startBtn.removeAttribute("hidden");
 }
 
 //function to increase the speed every 100 squares travelled until 50

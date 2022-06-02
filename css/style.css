@@ -1,4 +1,4 @@
-body{
+body {
   background-color: rgb(87, 112, 158);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   height: 100vh;
@@ -114,8 +114,15 @@ h1 {
 }
 
 @media screen and (max-width: 767px) {
+  body {
+    height: 100%;
+    background: url(../assets/jesus-5347929_960_720.jpeg) center fixed;
+    background-size: cover;
+  }
+
   h1 {
-    font-size: 40px;
+    font-size: 36px;
+    margin: 2rem 0 0rem 0;
   }
 
   #left, #right {
